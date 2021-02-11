@@ -1,5 +1,11 @@
 # Javascript Questions
 
+```
+An undeclared variable is assigned the value undefined at execution and is also of type undefined.
+A ReferenceError is thrown when trying to access a previously undeclared variable.
+The TypeError object represents an error when an operation could not be performed, typically (but not exclusively) when a value is not of the expected type.
+```
+
 1. What is Variable Hoisting?
 
    It is a Javascript Mechanism where variables and function declarations are moved to the top of their scope before code execution. Also this mechanism moves only declarations and not initialization.
@@ -95,7 +101,7 @@
       console.log(typeof double); // Output: function
       ```
 
-3. What is Classes Hoisting?
+3. What is Class Hoisting?
 
     JavaScript class can be loosely classified as the following:
 
@@ -158,4 +164,79 @@
     Square.height = 10;
     Square.width = 10;
     console.log(Square);
+    ```
+
+4. What is a Closure?
+
+    A closure is the combination of a function and the lexical environment within which that function was declared. i.e, It is an inner function that has access to the outer or enclosing function’s variables. The closure has three scope chains
+
+    1. Own scope where variables defined between its curly brackets
+    2. Outer function’s variables
+    3. Global variables Let's take an example of closure concept,
+
+    ```js
+    function Welcome(name){
+        var greetingInfo = function(message){
+            console.log(message+' '+name);
+        }
+        return greetingInfo;
+    }
+
+    var myFunction = Welcome('John');
+    myFunction('Welcome '); //Output: Welcome John
+    myFunction('Hello Mr.'); //output: Hello Mr.John
+    ```
+    As per the above code, the inner function(greetingInfo) has access to the variables in the outer function scope(Welcome) even after the outer function has returned.
+
+5. What is Function Currying?
+
+    Currying is the process of taking a function with multiple arguments and turning it into a sequence of functions each with only a single argument. Currying is named after a mathematician Haskell Curry. By applying currying, a n-ary function turns it into a unary function. Let's take an example of n-ary function and how it turns into a currying function
+
+    ```js
+    const multiArgFunction = (a, b, c) => a + b + c;
+    const curryUnaryFunction = a => b => c => a + b + c;
+    curryUnaryFunction (1); // returns a function: b => c =>  1 + b + c
+    curryUnaryFunction (1) (2); // returns a function: c => 3 + c
+    curryUnaryFunction (1) (2) (3); // returns the number 6
+    ```
+    Curried functions are great to improve code reusability and functional composition.
+
+6. What is a callback hell?
+
+    Callback Hell is an anti-pattern with multiple nested callbacks which makes code hard to read and debug when dealing with asynchronous logic. The callback hell looks like below,
+
+    ```js
+    async1(function(){
+        async2(function(){
+            async3(function(){
+                async4(function(){
+                    ....
+                });
+            });
+        });
+    });
+    ```
+    Callback hell can be avoided using `Promise`.
+
+7. What is a Promise?
+
+    A promise is an object that may produce a single value some time in the future with either a resolved value or a reason that it’s not resolved(for example, network error). It will be in one of the 3 possible states: fulfilled, rejected, or pending.
+
+    ```js
+      const promise = new Promise(function(resolve, reject) {
+      // promise description
+    })
+    ```
+
+    The usage of a promise would be as below,
+
+    ```js
+    const promise = new Promise(resolve => {
+        setTimeout(() => {
+            resolve("I'm a Promise!");
+        }, 5000);
+        }, reject => {
+
+    });
+    promise.then(value => console.log(value));
     ```
